@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>水印</title>
+</head>
+<body>
+ 	<canvas></canvas>
+
+ 	<script type="text/javascript">
+ 		var body = document.getElementsByTagName("body")[0];
+  
+     //用canvas标签生成水印，并把水印图片的地址给body标签设置background-image
+ 		function addWater(){
+     
+ 			var can = document.getElementsByTagName("canvas")[0];
+	 		can.style.display ="none";
+	 		var water = can.getContext("2d");
+	 		water.font ="20px 宋体";
+	 		water.fillStyle="rgb(0,0,0,0.3)";
+	 		water.rotate(-0.3);
+	 		water.fillText("我是水印",can.width/5,can.height);
+			var url = can.toDataURL("image/png", 1.0);
+ 			
+      //设置background-image
+ 			var style = "background-image:url(" + url+ ")";
+			body.setAttribute("style",style);
+			
+			return style;
+	 		
+ 		}
+ 		//记录style用于后续callback函数判断
+ 		var style = addWater();
+
+
+    //设置监听器 监听body节点 防止用户通过客户端控制台修改body标签的background-image属性使得水印失效，但是如果用户浏览器停用js则不能防止
+ 		function callback(){
+ 			// console.log("aaa");
+      //判断节点style，避免反复添加，给浏览器造成卡顿
+ 			if(body.style != style){
+ 				addWater();
+ 			}
+ 		}
+
+ 		var config = {attributes:true};//监听属性
+ 		var observe = new MutationObserver(callback);
+ 		observe.observe(body,config);
+ 		// observe.disconnect();
+
+ 	</script>
+</body>
+</html>
