@@ -1,6 +1,6 @@
 //下面代码会访问到本地文件，请自行建立 data1.json data2.json  data3.json文件，访问本地文件请用谷歌浏览器，并把快捷方式后缀加上 --allow-file-access-from-files 才可以正常访问
  //使用到 jquery.js 需要自行创建。
-//异步操作Promise对象练习
+//异步操作Promise对象练习 模拟根据id查找人名，再根据人名查找年龄...的异步请求操作里的回调函数嵌套/回调地狱，并用promise改写。
 console.log("star...");
 
 function queryPromise(url,data={},type="get",dataType="json"){
